@@ -1,1 +1,0 @@
-# acms-recaptcha
