@@ -61,7 +61,6 @@ co(function* () {
     fs.copySync('./theme', 'ReCaptcha/theme');
     fs.copySync(`./ServiceProvider.php`, `ReCaptcha/ServiceProvider.php`);
     fs.copySync(`./GET/ReCaptcha.php`, `ReCaptcha/GET/ReCaptcha.php`);
-    yield systemCmd(`cd ./ReCaptcha; composer install`);
     yield zipPromise(`ReCaptcha`, `./build/recaptcha.zip`);
     fs.removeSync(`ReCaptcha`);
     yield systemCmd('git add -A');
