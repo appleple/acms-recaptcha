@@ -58,7 +58,7 @@ co(function* () {
     fs.copySync(`./LICENSE`, `ReCaptcha/LICENSE`);
     fs.copySync(`./README.md`, `ReCaptcha/README.md`);
     fs.copySync(`./Hook.php`, `ReCaptcha/Hook.php`);
-    fs.copySync('./theme/admin/app/recaptcha/index.html', 'ReCaptcha/theme/admin/app/recaptcha/index.html');
+    fs.copySync('./theme', 'ReCaptcha/theme');
     fs.copySync(`./ServiceProvider.php`, `ReCaptcha/ServiceProvider.php`);
     fs.copySync(`./GET/ReCaptcha.php`, `ReCaptcha/GET/ReCaptcha.php`);
     yield systemCmd(`cd ./ReCaptcha; composer install`);

@@ -48,7 +48,8 @@ class ServiceProvider extends ACMS_App
 
         if (ADMIN === 'app_recaptcha_index') {
             $inect = InjectTemplate::singleton();
-            $inect->add('admin-main', '/extension/plugins/ReCaptcha/theme/admin/app/recaptcha/index.html');
+            $inect->add('admin-main', PLUGIN_DIR . 'ReCaptcha/theme/index.html');
+            $inect->add('admin-topicpath', PLUGIN_DIR . 'ReCaptcha/theme/topicpath.html');
         }
     }
 
