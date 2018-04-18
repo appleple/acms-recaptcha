@@ -16,7 +16,7 @@ class ServiceProvider extends ACMS_App
     /**
      * @var string
      */
-    public $name = 'ReCAPTCHA';
+    public $name = 'reCAPTCHA';
 
     /**
      * @var string
@@ -36,7 +36,7 @@ class ServiceProvider extends ACMS_App
     /**
      * @var string
      */
-    public $desc = 'フォーム送信にReCAPTCHAを導入して不正なアクセスを防ぎます。';
+    public $desc = 'フォーム送信にreCAPTCHAを導入して不正なアクセスを防ぎます。';
 
     /**
      * サービスの初期処理
