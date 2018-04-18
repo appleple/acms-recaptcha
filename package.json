@@ -1,6 +1,6 @@
 {
   "name": "acms-recaptcha",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "フォーム送信にReCAPTCHAを導入して不正なアクセスを防ぎます。",
   "main": "deploy.js",
   "scripts": {
