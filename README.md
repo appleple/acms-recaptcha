@@ -1,4 +1,4 @@
-# ReCAPTCHA for a-blog cms
+# reCAPTCHA for a-blog cms
 
 a-blog cms の 拡張アプリ「reCAPTCHA for a-blog cms」を使うと、GoogleのreCAPTCHAを使用してボットからの
 フォームアクセスを防御することが出来るようになります。この拡張アプリはVer.2.8.0より利用可能です。
