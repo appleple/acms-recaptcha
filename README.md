@@ -1,6 +1,6 @@
 # ReCAPTCHA for a-blog cms
 
-a-blog cms の 拡張アプリ「ReCAPTCHA for a-blog cms」を使うと、GoogleのReCAPTCHAを使用してボットからの
+a-blog cms の 拡張アプリ「reCAPTCHA for a-blog cms」を使うと、GoogleのreCAPTCHAを使用してボットからの
 フォームアクセスを防御することが出来るようになります。この拡張アプリはVer.2.8.0より利用可能です。
 
 ## ダウンロード
@@ -13,7 +13,7 @@ a-blog cms の 拡張アプリ「ReCAPTCHA for a-blog cms」を使うと、Googl
 
 ## インストール
 
-管理ページ > 拡張アプリより「拡張アプリ管理」のページに移動します。そのページより下の図のようにReCAPTCHAをインストールします。
+管理ページ > 拡張アプリより「拡張アプリ管理」のページに移動します。そのページより下の図のようにreCAPTCHAをインストールします。
 
 ![アプリ一覧](./images/app-index.png "アプリ一覧")
 
@@ -38,7 +38,7 @@ a-blog cms の 拡張アプリ「ReCAPTCHA for a-blog cms」を使うと、Googl
 
 ### 設定
 
-管理ページ > ReCAPTCHA に移動し、**Site key** と **Secret key** を設定します。
+管理ページ > reCAPTCHA に移動し、**Site key** と **Secret key** を設定します。
 
 ![設定画面](./images/setting.png "設定画面")
 
@@ -69,9 +69,9 @@ a-blog cms の 拡張アプリ「ReCAPTCHA for a-blog cms」を使うと、Googl
 	<!-- BEGIN_MODULE ReCaptcha -->
 	<div class="g-recaptcha" data-callback="validateRecaptcha" data-sitekey="{sitekey}"></div>
 	<!-- END_MODULE ReCaptcha -->
- 
+
 	...
- 
+
 	<input type="submit" name="ACMS_POST_Form_Submit" value="送信する" class="recaptcha" disabled />
 </form>
 ```
