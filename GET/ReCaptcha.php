@@ -14,12 +14,11 @@ class ReCaptcha extends ACMS_GET
 {
     public function get()
     {
-        $Tpl = new Template($this->tpl, new ACMS_Corrector());
-
-        $Tpl->add(null, array(
-            'sitekey' => config('google_recaptcha_sitekey'),
+        $key = config('google_recaptcha_sitekey');
+        $tpl = new Template($this->tpl, new ACMS_Corrector());
+        $tpl->add(null, array(
+            'sitekey' => $key,
         ));
-
-        return $Tpl->get();
+        return $tpl->get();
     }
 }

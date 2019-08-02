@@ -24,7 +24,7 @@ class Hook
             return;
         }
         $secret = config('google_recaptcha_secret');
-        $response = $thisModule->Post->get('g-recaptcha-response');
+        $response = $thisModule->Post->get('g-recaptcha-token');
         $api = $this->endpoint . "?secret=${secret}&response=${response}";
         $valid = false;
 

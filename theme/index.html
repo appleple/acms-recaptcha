@@ -4,7 +4,7 @@
 	</div>
 	<div>
 		<h1 class="acms-admin-admin-title js-dialog-title">
-			ReCAPTCHA
+			ReCAPTCHA V3
 		</h1>
 	</div>
 	<div class="acms-admin-col-md-6">
@@ -70,15 +70,15 @@
 				以下のコードをフォームのhead要素の中に追加します。
 			</p>
 			<pre class="code JavaScript">
-&lt;script src="https://www.google.com/recaptcha/api.js" async defer>&lt;/script&gt;
+&lt;!-- BEGIN_MODULE ReCaptcha --&gt;
+&lt;script src="https://www.google.com/recaptcha/api.js?render={sitekey}"&gt;&lt;/script&gt;
+&lt;script src="%{ROOT_DIR}extension/plugins/ReCaptcha/assets/recaptcha.js"&gt;&lt;/script&gt;
 &lt;script&gt;
-  function validateRecaptcha ( code ) {
-    if ( !!code ) {
-      var form = document.querySelector(".recaptcha");
-      form.removeAttribute('disabled');
-    }
-  }
+  ACMS.Ready(function () {
+    ACMS.Config.ReCaptcha = '{sitekey}';
+  });
 &lt;/script&gt;
+&lt;!-- END_MODULE ReCaptcha --&gt;
 			</pre>
 		</td>
 	</tr>
@@ -86,19 +86,26 @@
 		<th>HTMLの修正</th>
 		<td>
 			<p>
-				フォーム送信時（確認画面）の form要素を修正します。ReCaptcha モジュールをformの中に置き、<br>
-				送信ボタンに <strong>recaptcha</strong> クラスを追加。また <strong>disabled</strong> 属性を追加します。
+				フォーム送信時（確認画面）の form要素を修正します。<br>
+				form要素のclass属性に <strong>js-recaptcha-form</strong> クラスを追加します。
 			</p>
 			<pre class="code HTML">
-&lt;form action="thanks.html" method="post" enctype="multipart/form-data"&gt;
-	&lt;!-- BEGIN_MODULE ReCaptcha --&gt;
-	&lt;div class="g-recaptcha" data-callback="validateRecaptcha" data-sitekey="{sitekey}"&gt;&lt;/div&gt;
-	&lt;!-- END_MODULE ReCaptcha --&gt;
-
+&lt;form action="thanks.html" method="post" enctype="multipart/form-data" class="js-recaptcha-form"&gt;
 	...
-
-	&lt;input type="submit" name="ACMS_POST_Form_Submit" value="送信する" class="recaptcha" disabled /&gt;
+	&lt;input type="submit" name="ACMS_POST_Form_Submit" value="送信する"/&gt;
 &lt;/form&gt;
+			</pre>
+		</td>
+	</tr>
+	<tr>
+		<th>エラー表示</th>
+		<td>
+			<p>ReCaptchaによってロボットだと認識された場合は、Formモジュールの <strong>step#forbidden</strong> ブロックが表示されます。</p>
+
+			<pre>
+&lt;!-- BEGIN step#forbidden --&gt;
+	&lt;p&gt;不正なアクセスです。&lt;/p&gt;
+&lt;!-- END step#forbidden --&gt;
 			</pre>
 		</td>
 	</tr>
