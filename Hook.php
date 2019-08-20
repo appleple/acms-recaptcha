@@ -2,6 +2,8 @@
 
 namespace Acms\Plugins\ReCaptcha;
 
+use Config;
+
 class Hook
 {
     /**
@@ -23,7 +25,10 @@ class Hook
         if ($moduleName !== 'ACMS_POST_Form_Submit') {
             return;
         }
-        $secret = config('google_recaptcha_secret');
+        $config = Config::loadDefaultField();
+        $config->overload(Config::loadBlogConfig(BID));
+
+        $secret = $config->get('google_recaptcha_secret');
         $response = $thisModule->Post->get('g-recaptcha-token');
         $api = $this->endpoint . "?secret=${secret}&response=${response}";
         $valid = false;
