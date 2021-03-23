@@ -11,7 +11,7 @@ class ServiceProvider extends ACMS_App
     /**
      * @var string
      */
-    public $version = '3.0.0';
+    public $version = '3.0.1';
 
     /**
      * @var string
@@ -48,8 +48,8 @@ class ServiceProvider extends ACMS_App
 
         if (ADMIN === 'app_recaptcha_index') {
             $inect = InjectTemplate::singleton();
-            $inect->add('admin-main', PLUGIN_DIR . 'ReCaptcha/theme/index.html');
-            $inect->add('admin-topicpath', PLUGIN_DIR . 'ReCaptcha/theme/topicpath.html');
+            $inect->add('admin-main', PLUGIN_DIR . 'ReCaptcha/template/index.html');
+            $inect->add('admin-topicpath', PLUGIN_DIR . 'ReCaptcha/template/topicpath.html');
         }
     }
 

@@ -59,7 +59,7 @@ co(function* () {
     fs.copySync(`./README.md`, `ReCaptcha/README.md`);
     fs.copySync(`./Hook.php`, `ReCaptcha/Hook.php`);
     fs.copySync('./assets', 'ReCaptcha/assets');
-    fs.copySync('./theme', 'ReCaptcha/theme');
+    fs.copySync('./template', 'ReCaptcha/template');
     fs.copySync(`./ServiceProvider.php`, `ReCaptcha/ServiceProvider.php`);
     fs.copySync(`./GET/ReCaptcha.php`, `ReCaptcha/GET/ReCaptcha.php`);
     yield zipPromise(`ReCaptcha`, `./build/recaptcha.zip`);
