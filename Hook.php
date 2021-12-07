@@ -47,7 +47,7 @@ class Hook
         
         if (!$valid) {
             $thisModule->Post->setValidator('g-recaptcha', 'validator', false);
-            $thisModule->Post->set('step', 'forbidden');
+            $thisModule->Post->set('error', 'forbidden');
         }
     }
 }
