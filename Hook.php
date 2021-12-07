@@ -32,15 +32,21 @@ class Hook
         $response = $thisModule->Post->get('g-recaptcha-token');
         $api = $this->endpoint . "?secret=${secret}&response=${response}";
         $valid = false;
-
-        if ($check = @file_get_contents($api)) {
+        
+        try {
+            $req = \Http::init($api, 'GET');
+            $response = $req->send();
+            $check = $response->getResponseBody();
             $check = json_decode($check);
             if ($check->success === true) {
                 $valid = true;
             }
+        } catch (\Exception $e) {
+            userErrorLog('ACMS Warning: reCAPTCHA: ' . $e->getMessage());
         }
+        
         if (!$valid) {
-            $thisModule->Post->setMethod('g-recaptcha', 'validator', false);
+            $thisModule->Post->setValidator('g-recaptcha', 'validator', false);
             $thisModule->Post->set('step', 'forbidden');
         }
     }
