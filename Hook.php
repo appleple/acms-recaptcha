@@ -21,6 +21,8 @@ class Hook
      */
     public function beforePostFire($thisModule)
     {
+        if (!defined('CURL_SSLVERSION_TLSv1_2')) define('CURL_SSLVERSION_TLSv1_2', 6);
+        
         $moduleName = get_class($thisModule);
         if ($moduleName !== 'ACMS_POST_Form_Submit') {
             return;
