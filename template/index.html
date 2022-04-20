@@ -74,9 +74,15 @@
 &lt;script src="https://www.google.com/recaptcha/api.js?render={sitekey}"&gt;&lt;/script&gt;
 &lt;script src="%{ROOT_DIR}extension/plugins/ReCaptcha/assets/recaptcha.js"&gt;&lt;/script&gt;
 &lt;script&gt;
+if (window.ACMS === undefined) {
+  ACMS = {};
+  ACMS.Config = {};
+  ACMS.Config.ReCaptcha = '{sitekey}';
+} else {
   ACMS.Ready(function () {
     ACMS.Config.ReCaptcha = '{sitekey}';
   });
+}
 &lt;/script&gt;
 &lt;!-- END_MODULE ReCaptcha --&gt;
 			</pre>

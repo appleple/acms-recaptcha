@@ -52,9 +52,15 @@ a-blog cms の 拡張アプリ「reCAPTCHA for a-blog cms」を使うと、Googl
 <script src="https://www.google.com/recaptcha/api.js?render={sitekey}"></script>
 <script src="/extension/plugins/ReCaptcha/assets/recaptcha.js"></script>
 <script>
-  ACMS.Ready(function () {
+  if (window.ACMS === undefined) {
+    ACMS = {};
+    ACMS.Config = {};
     ACMS.Config.ReCaptcha = '{sitekey}';
-  });
+  } else {
+    ACMS.Ready(function () {
+      ACMS.Config.ReCaptcha = '{sitekey}';
+    });
+  }
 </script>
 <!-- END_MODULE ReCaptcha -->
 ```
