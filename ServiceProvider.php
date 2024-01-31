@@ -45,12 +45,13 @@ class ServiceProvider extends ACMS_App
     {
         $hook = HookFactory::singleton();
         $hook->attach('ReCaptchaHook', new Hook);
+        $inject = InjectTemplate::singleton();
 
         if (ADMIN === 'app_recaptcha_index') {
-            $inect = InjectTemplate::singleton();
-            $inect->add('admin-main', PLUGIN_DIR . 'ReCaptcha/template/index.html');
-            $inect->add('admin-topicpath', PLUGIN_DIR . 'ReCaptcha/template/topicpath.html');
+            $inject->add('admin-main', PLUGIN_DIR . 'ReCaptcha/template/index.html');
+            $inject->add('admin-topicpath', PLUGIN_DIR . 'ReCaptcha/template/topicpath.html');
         }
+        $inject->add('admin-form', PLUGIN_DIR . 'ReCaptcha/template/admin/form.html');
     }
 
     /**

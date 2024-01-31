@@ -1,0 +1,21 @@
+<h2 class="acms-admin-admin-title2">reCAPTCHA設定</h2>
+<table class="acms-admin-table-admin-edit">
+  <tr>
+    <th>
+      reCAPTCHA連携<i
+        class="acms-admin-icon-tooltip js-acms-tooltip js-acms-tooltip-hover"
+        data-acms-tooltip="チェックをすると、reCAPTCHAの連携が有効になります。"
+      ></i>
+    </th>
+    <td>
+      <div class="acms-admin-form-checkbox">
+        <input type="hidden" name="recaptcha_void" value="off">
+        <input type="checkbox" name="recaptcha_void" value="on"{recaptcha_void:checked#on} id="recaptcha_void">
+        <label for="recaptcha_void">
+          <i class="acms-admin-ico-checkbox"></i>有効
+        </label>
+      </div>
+      <input type="hidden" name="mail[]" value="recaptcha_void">
+    </td>
+  </tr>
+</table>

@@ -22,11 +22,21 @@ class Hook
     public function beforePostFire($thisModule)
     {
         if (!defined('CURL_SSLVERSION_TLSv1_2')) define('CURL_SSLVERSION_TLSv1_2', 6);
-        
+
         $moduleName = get_class($thisModule);
         if ($moduleName !== 'ACMS_POST_Form_Submit') {
             return;
         }
+        $id = $thisModule->Post->get('id');
+        $info = $thisModule->loadForm($id);
+        if (empty($info)) {
+            return;
+        }
+        $mail = $info['data']->getChild('mail');
+        if ($mail->get('recaptcha_void') !== 'on') {
+            return;
+        }
+
         $config = Config::loadDefaultField();
         $config->overload(Config::loadBlogConfig(BID));
 
@@ -34,7 +44,7 @@ class Hook
         $response = $thisModule->Post->get('g-recaptcha-token');
         $api = $this->endpoint . "?secret=${secret}&response=${response}";
         $valid = false;
-        
+
         try {
             $curl = curl_init();
             curl_setopt($curl, CURLOPT_URL, $api);
@@ -57,7 +67,7 @@ class Hook
         } catch (\Exception $e) {
             userErrorLog('ACMS Warning: reCAPTCHA: ' . $e->getMessage());
         }
-        
+
         if (!$valid) {
             $thisModule->Post->setValidator('g-recaptcha', 'validator', false);
             $thisModule->Post->set('error', 'forbidden');
