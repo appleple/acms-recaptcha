@@ -40,8 +40,11 @@ a-blog cms の 拡張アプリ「reCAPTCHA for a-blog cms」を使うと、Googl
 
 管理ページ > reCAPTCHA に移動し、**Site key** と **Secret key** を設定します。
 
-![設定画面](./images/setting.png "設定画面")
+![拡張アプリ設定画面](./images/setting-plugin.png "拡張アプリ設定画面")
 
+管理ページ > フォーム に移動し、reCAPTCHA を利用したいフォームIDから **reCAPTCHA連携** を有効にします。
+
+![フォーム設定画面](./images/setting-form.png "フォーム設定画面")
 
 ### JavaScript
 
