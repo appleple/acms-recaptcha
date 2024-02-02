@@ -67,22 +67,22 @@ const pluginVersionUp = () => {
 co(function* () {
   pluginVersionUp();
 
-  // try {
-  //   fs.mkdirsSync(`ReCaptcha`);
-  //   fs.mkdirsSync(`build`);
-  //   fs.copySync(`./LICENSE`, `ReCaptcha/LICENSE`);
-  //   fs.copySync(`./README.md`, `ReCaptcha/README.md`);
-  //   fs.copySync(`./Hook.php`, `ReCaptcha/Hook.php`);
-  //   fs.copySync('./assets', 'ReCaptcha/assets');
-  //   fs.copySync('./template', 'ReCaptcha/template');
-  //   fs.copySync(`./ServiceProvider.php`, `ReCaptcha/ServiceProvider.php`);
-  //   fs.copySync(`./GET/ReCaptcha.php`, `ReCaptcha/GET/ReCaptcha.php`);
-  //   yield zipPromise(`ReCaptcha`, `./build/recaptcha.zip`);
-  //   fs.removeSync(`ReCaptcha`);
-  //   yield systemCmd('git add -A');
-  //   yield systemCmd(`git commit -m "v${pkg.version}"`);
-  //   yield systemCmd('git push');
-  // } catch (err) {
-  //   console.log(err);
-  // }
+  try {
+    fs.mkdirsSync(`ReCaptcha`);
+    fs.mkdirsSync(`build`);
+    fs.copySync(`./LICENSE`, `ReCaptcha/LICENSE`);
+    fs.copySync(`./README.md`, `ReCaptcha/README.md`);
+    fs.copySync(`./Hook.php`, `ReCaptcha/Hook.php`);
+    fs.copySync('./assets', 'ReCaptcha/assets');
+    fs.copySync('./template', 'ReCaptcha/template');
+    fs.copySync(`./ServiceProvider.php`, `ReCaptcha/ServiceProvider.php`);
+    fs.copySync(`./GET/ReCaptcha.php`, `ReCaptcha/GET/ReCaptcha.php`);
+    yield zipPromise(`ReCaptcha`, `./build/recaptcha.zip`);
+    fs.removeSync(`ReCaptcha`);
+    yield systemCmd('git add -A');
+    yield systemCmd(`git commit -m "v${pkg.version}"`);
+    yield systemCmd('git push');
+  } catch (err) {
+    console.log(err);
+  }
 });
