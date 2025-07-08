@@ -41,6 +41,7 @@ class Hook
         $config->overload(Config::loadBlogConfig(BID));
 
         $secret = $config->get('google_recaptcha_secret');
+        $score = (float) $config->get('google_recaptcha_score', 0.5);
         $response = $thisModule->Post->get('g-recaptcha-token');
         $api = $this->endpoint . "?secret={$secret}&response={$response}";
         $valid = false;
@@ -60,8 +61,13 @@ class Hook
             if (empty($response) || $status !== 200) {
                 throw new \RuntimeException($status . ' : Failed to get the json.');
             }
-            $json = json_decode($response);
-            if ($json->success === true) {
+            $json = json_decode($response, true);
+            if (
+                isset($json['success']) &&
+                isset($json['score']) &&
+                $json['success'] === true &&
+                $json['score'] >= $score
+            ) {
                 $valid = true;
             }
         } catch (\Exception $e) {

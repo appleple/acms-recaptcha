@@ -1,75 +1,94 @@
 <header>
-	<div>
-		@include("/admin/topicpath.html")
-	</div>
-	<div>
-		<h1 class="acms-admin-admin-title js-dialog-title">
-			ReCAPTCHA V3
-		</h1>
-	</div>
-	<div class="acms-admin-col-md-6">
+  <div>
+    @include("/admin/topicpath.html")
+  </div>
+  <div>
+    <h1 class="acms-admin-admin-title js-dialog-title">
+      ReCAPTCHA V3
+    </h1>
+  </div>
+  <div class="acms-admin-col-md-6">
 
-	</div>
+  </div>
 </header>
 
 <!-- BEGIN_MODULE Admin_Config -->
 <!-- BEGIN_IF [{notice_mess}/nem/] -->
 <p class="acms-admin-alert acms-admin-alert-info acms-admin-alert-icon">
-	<span class="acms-admin-alert-icon-before acms-admin-icon-news"></span>
-	ReCAPTCHA 設定を保存しました
-	<button class="js-acms-alert-close acms-admin-alert-icon-after acms-admin-margin-right-mini">×</button>
+  <span class="acms-admin-alert-icon-before acms-admin-icon-news"></span>
+  ReCAPTCHA 設定を保存しました
+  <button class="js-acms-alert-close acms-admin-alert-icon-after acms-admin-margin-right-mini">×</button>
 </p><!-- END_IF -->
 
 
 <form action="" method="post" class="acms-admin-form">
-	<div class="js-acms_fix_marker acms_fix_bg">
-		<div class="acms_fix_bg_index">
-			<input type="submit" name="ACMS_POST_Config" value="<!--T-->保存<!--/T-->"
-				   class="acms-admin-btn-admin acms-admin-btn-admin-primary acms-admin-btn-admin-save js-saving-splash"/>
-		</div>
-	</div>
+  <div class="js-acms_fix_marker acms_fix_bg">
+    <div class="acms_fix_bg_index">
+      <input
+        type="submit"
+        name="ACMS_POST_Config"
+        value="<!--T-->保存<!--/T-->"
+        class="acms-admin-btn-admin acms-admin-btn-admin-primary acms-admin-btn-admin-save js-saving-splash"/>
+    </div>
+  </div>
 
-	<h2 class="acms-admin-admin-title2">API設定</h2>
-	<table class="acms-admin-table-admin-edit">
-		<tr>
-			<th>Site key<i class="acms-admin-icon-tooltip js-acms-tooltip-hover" data-acms-tooltip="ReCAPTCHAのHTMLコードでこれを使用します。"></i></th>
-			<td>
-				<input type="text" name="google_recaptcha_sitekey" value="{google_recaptcha_sitekey}" class="acms-admin-form-width-medium"/>
-				<input type="hidden" name="config[]" value="google_recaptcha_sitekey"/>
-			</td>
-		</tr>
-		<tr>
-			<th>Secret key<i class="acms-admin-icon-tooltip js-acms-tooltip-hover" data-acms-tooltip="Google API と連携するために使用します。"></i></th>
-			<td>
-				<input type="text" name="google_recaptcha_secret" value="{google_recaptcha_secret}" class="acms-admin-form-width-medium"/>
-				<input type="hidden" name="config[]" value="google_recaptcha_secret"/>
-			</td>
-		</tr>
-	</table>
+  <h2 class="acms-admin-admin-title2">API設定</h2>
+  <table class="acms-admin-table-admin-edit">
+    <tr>
+      <th>Site key<i class="acms-admin-icon-tooltip js-acms-tooltip-hover" data-acms-tooltip="ReCAPTCHAのHTMLコードでこれを使用します。"></i></th>
+      <td>
+        <input type="text" name="google_recaptcha_sitekey" value="{google_recaptcha_sitekey}" class="acms-admin-form-width-medium"/>
+        <input type="hidden" name="config[]" value="google_recaptcha_sitekey"/>
+      </td>
+    </tr>
+    <tr>
+      <th>Secret key<i class="acms-admin-icon-tooltip js-acms-tooltip-hover" data-acms-tooltip="Google API と連携するために使用します。"></i></th>
+      <td>
+        <input type="text" name="google_recaptcha_secret" value="{google_recaptcha_secret}" class="acms-admin-form-width-medium"/>
+        <input type="hidden" name="config[]" value="google_recaptcha_secret"/>
+      </td>
+    </tr>
+    <tr>
+      <th>スコアしきい値<i class="acms-admin-icon-tooltip js-acms-tooltip-hover" data-acms-tooltip="reCAPTCHAが出したスコアで、許可するスコアのしきい値を設定します。"></i></th>
+      <td>
+        <input
+          type="number"
+          name="google_recaptcha_score"
+          value="{google_recaptcha_score}"
+          class="acms-admin-form-width-small"
+          min="0"
+          max="1"
+          step="0.01"
+          placeholder="0.0 ～ 1.0 の値を入力"
+        />
+        <input type="hidden" name="config[]" value="google_recaptcha_score"/>
+        <span>（0.0 から 1.0 の間で設定してください。）</span>
+      </td>
+    </tr>
+  </table>
 </form>
-
 <!-- END_MODULE Admin_Config -->
 
 <h2 class="acms-admin-admin-title2">設置方法</h2>
 <table class="acms-admin-table-admin-edit">
-	<tr>
-		<th>API登録</th>
-		<td>
-			<p>
-				<a href="https://www.google.com/recaptcha/admin#list">https://www.google.com/recaptcha/admin#list</a> にアクセスして新しいサイトを登録します。
-			</p>
-			</p>
-			登録後、発行された Site key と Secret key を上のAPI設定に保存してください。
-			</p>
-		</td>
-	</tr>
-	<tr>
-		<th>JavaScriptの設置</th>
-		<td>
-			<p>
-				以下のコードをフォームのhead要素の中に追加します。
-			</p>
-			<pre class="code JavaScript">
+  <tr>
+    <th>API登録</th>
+    <td>
+      <p>
+        <a href="https://www.google.com/recaptcha/admin#list">https://www.google.com/recaptcha/admin#list</a> にアクセスして新しいサイトを登録します。
+      </p>
+      </p>
+      登録後、発行された Site key と Secret key を上のAPI設定に保存してください。
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <th>JavaScriptの設置</th>
+    <td>
+      <p>
+        以下のコードをフォームのhead要素の中に追加します。
+      </p>
+      <pre class="code JavaScript">
 &lt;!-- BEGIN_MODULE ReCaptcha --&gt;
 &lt;script src="https://www.google.com/recaptcha/api.js?render={sitekey}"&gt;&lt;/script&gt;
 &lt;script src="%{ROOT_DIR}extension/plugins/ReCaptcha/assets/recaptcha.js"&gt;&lt;/script&gt;
@@ -85,35 +104,35 @@ if (window.ACMS === undefined) {
 }
 &lt;/script&gt;
 &lt;!-- END_MODULE ReCaptcha --&gt;
-			</pre>
-		</td>
-	</tr>
-	<tr>
-		<th>HTMLの修正</th>
-		<td>
-			<p>
-				フォーム送信時（確認画面）の form要素を修正します。<br>
-				form要素のclass属性に <strong>js-recaptcha-form</strong> クラスを追加します。
-			</p>
-			<pre class="code HTML">
+      </pre>
+    </td>
+  </tr>
+  <tr>
+    <th>HTMLの修正</th>
+    <td>
+      <p>
+        フォーム送信時（確認画面）の form要素を修正します。<br>
+        form要素のclass属性に <strong>js-recaptcha-form</strong> クラスを追加します。
+      </p>
+      <pre class="code HTML">
 &lt;form action="thanks.html" method="post" enctype="multipart/form-data" class="js-recaptcha-form"&gt;
-	...
-	&lt;input type="submit" name="ACMS_POST_Form_Submit" value="送信する"/&gt;
+  ...
+  &lt;input type="submit" name="ACMS_POST_Form_Submit" value="送信する"/&gt;
 &lt;/form&gt;
-			</pre>
-		</td>
-	</tr>
-	<tr>
-		<th>エラー表示</th>
-		<td>
-			<p>ReCaptchaによってロボットだと認識された場合は、Formモジュールの <strong>step#forbidden</strong> ブロックが表示されます。</p>
+      </pre>
+    </td>
+  </tr>
+  <tr>
+    <th>エラー表示</th>
+    <td>
+      <p>ReCaptchaによってロボットだと認識された場合は、Formモジュールの <strong>step#forbidden</strong> ブロックが表示されます。</p>
 
-			<pre>
+      <pre>
 &lt;!-- BEGIN step#forbidden --&gt;
-	&lt;p&gt;不正なアクセスです。&lt;/p&gt;
+  &lt;p&gt;不正なアクセスです。&lt;/p&gt;
 &lt;!-- END step#forbidden --&gt;
-			</pre>
-		</td>
-	</tr>
+      </pre>
+    </td>
+  </tr>
 </table>
 
