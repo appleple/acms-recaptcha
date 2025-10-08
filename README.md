@@ -1,7 +1,7 @@
 # reCAPTCHA V3 for a-blog cms
 
 a-blog cms の 拡張アプリ「reCAPTCHA for a-blog cms」を使うと、GoogleのreCAPTCHAを使用してボットからの
-フォームアクセスを防御することが出来るようになります。この拡張アプリはVer.2.8.0より利用可能です。
+フォームアクセスを防御することが出来るようになります。
 
 ## ダウンロード
 
@@ -10,6 +10,12 @@ a-blog cms の 拡張アプリ「reCAPTCHA for a-blog cms」を使うと、Googl
 利用するためにはダウンロード後、解凍して **extension/plugins** に設置してください。
 
 * extension/plugins/ReCaptcha
+
+## 動作環境
+
+- a-blog cms >= Ver. 2.8.0
+- php >= 5.3.3
+
 
 ## インストール
 
@@ -103,5 +109,3 @@ config.server.phpでHOOKを有効にしておく必要があります。
 ```
 define('HOOK_ENABLE', 1);
 ```
-
-
