@@ -1,12 +1,12 @@
 (function () {
   var fn = function () {
     var form = document.querySelector('.js-recaptcha-form');
-    var submitButton = document.querySelector('.js-submit');
     if (!form) {
       return;
     }
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const submitButton = event.submitter;
       if (submitButton) {
         submitButton.disabled = true;
       }
@@ -22,8 +22,8 @@
             form.appendChild(q);
             var q2 = document.createElement('input');
             q2.type = 'hidden';
-            q2.name = 'ACMS_POST_Form_Submit';
-            q2.value = 'send';
+            q2.name = submitButton?.name || 'ACMS_POST_Form_Submit';
+            q2.value = submitButton?.value || 'send';
             form.appendChild(q2);
             form.submit();
           }, function (reason) {

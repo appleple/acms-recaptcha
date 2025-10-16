@@ -5,10 +5,16 @@
   "main": "deploy.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "deploy": "node deploy.js",
-    "patch": "npm version patch && npm run deploy",
-    "minor": "npm version minor && npm run deploy",
-    "major": "npm version major && npm run deploy"
+    "prepackage": "npm run minify:js",
+    "package": "npm run setup && npm run build:app",
+    "build:app": "node ./tools/build.js",
+    "version:sync": "node ./tools/version.js",
+    "release:commit": "node ./tools/commit.js",
+    "release:patch": "npm version patch --no-git-tag-version && npm run version:sync && npm run package && npm run release:commit",
+    "release:minor": "npm version minor --no-git-tag-version && npm run version:sync && npm run package && npm run release:commit",
+    "release:major": "npm version major --no-git-tag-version && npm run version:sync && npm run package && npm run release:commit",
+    "minify:js": "terser ./src/recaptcha.js -o ./assets/recaptcha.js -m -c -b comments=false",
+    "setup": "node ./tools/setup.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +30,7 @@
     "archiver": "^2.1.1",
     "co": "^4.6.0",
     "fs-extra": "^2.1.2",
-    "node-cmd": "^3.0.0"
+    "node-cmd": "^3.0.0",
+    "terser": "^5.44.0"
   }
 }
