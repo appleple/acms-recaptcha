@@ -10,9 +10,9 @@
     "build:app": "node ./tools/build.js",
     "version:sync": "node ./tools/version.js",
     "release:commit": "node ./tools/commit.js",
-    "release:patch": "npm version patch --no-git-tag-version && npm run version:sync && npm run package && npm run release:commit",
-    "release:minor": "npm version minor --no-git-tag-version && npm run version:sync && npm run package && npm run release:commit",
-    "release:major": "npm version major --no-git-tag-version && npm run version:sync && npm run package && npm run release:commit",
+    "release:patch": "npm version patch --no-git-tag-version && npm run version:sync && npm run release:commit",
+    "release:minor": "npm version minor --no-git-tag-version && npm run version:sync && npm run release:commit",
+    "release:major": "npm version major --no-git-tag-version && npm run version:sync && npm run release:commit",
     "minify:js": "terser ./assets/recaptcha.js -o ./src/assets/recaptcha.js -m -c -b comments=false",
     "setup": "node ./tools/setup.js"
   },
