@@ -46,11 +46,11 @@ class ReCaptcha
             ) {
                 return true;
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $th) {
             if (class_exists('AcmsLogger')) {
-                \AcmsLogger::error('【reCAPTCHA plugin】reCAPTCHAの検証に失敗しました', \Common::exceptionArray($e));
+                \AcmsLogger::error('【reCAPTCHA plugin】reCAPTCHAの検証に失敗しました', \Common::exceptionArray($th));
             } else {
-                userErrorLog('ACMS Warning: reCAPTCHA: ' . $e->getMessage());
+                userErrorLog('ACMS Warning: reCAPTCHA: ' . $th->getMessage());
             }
         }
         return false;
