@@ -5,9 +5,9 @@ a-blog cms の 拡張アプリ「reCAPTCHA for a-blog cms」を使うと、Googl
 
 ## ダウンロード
 
-[reCAPTCHA for a-blog cms](https://github.com/appleple/acms-recaptcha/raw/master/build/recaptcha.zip)
+[reCAPTCHA for a-blog cms](https://github.com/appleple/acms-recaptcha/releases/latest)
 
-利用するためにはダウンロード後、解凍して **extension/plugins** に設置してください。
+利用するためには最新リリースから zip をダウンロード後、解凍して **extension/plugins** に設置してください。
 
 * extension/plugins/ReCaptcha
 

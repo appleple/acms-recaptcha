@@ -7,25 +7,9 @@ const co = require('co');
 const { zipPromise } = require('./lib/system.js');
 
 const ignores = [
-  '.git',
-  '.gitignore',
-  '.gitattributes',
-  'node_modules',
-  '.editorconfig',
-  '.eslintrc.js',
-  '.node-version',
-  '.husky',
-  'build',
-  '.prettierrc.js',
+  'vendor',
   'composer.json',
   'composer.lock',
-  'package-lock.json',
-  'package.json',
-  'phpcs.xml',
-  'phpmd.xml',
-  '.phplint-cache',
-  'phpmd.log',
-  'tools',
 ];
 
 co(function* () {
@@ -33,15 +17,24 @@ co(function* () {
     /**
      * ready plugins files
      */
-    const copyFiles = fs.readdirSync('.');
+    const copyFiles = fs.readdirSync('src');
     fs.mkdirsSync('ReCaptcha');
     fs.mkdirsSync('build');
+
+    /**
+     * copy root files
+     */
+    ['images', 'README.md', 'LICENSE'].forEach((name) => {
+      if (fs.existsSync(name)) {
+        fs.copySync(name, `ReCaptcha/${name}`);
+      }
+    });
 
     /**
      * copy plugins files
      */
     copyFiles.forEach((file) => {
-      fs.copySync(`./${file}`, `ReCaptcha/${file}`);
+      fs.copySync(`src/${file}`, `ReCaptcha/${file}`);
     });
 
     /**

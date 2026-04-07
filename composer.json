@@ -1,0 +1,20 @@
+{
+    "name": "com.appleple/recaptcha",
+    "description": "a-blog cms extension.",
+    "scripts": {
+        "lint": "vendor/bin/phpcs --standard=phpcs.xml",
+        "format": "vendor/bin/phpcbf --standard=phpcs.xml",
+        "post-install-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/phpcompatibility/php-compatibility",
+        "post-update-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/phpcompatibility/php-compatibility"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "3.*",
+        "phpcompatibility/php-compatibility": "*"
+    },
+    "prefer-stable": true,
+    "config": {
+        "platform": {
+            "php": "8.3"
+        }
+    }
+}

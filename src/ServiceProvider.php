@@ -44,7 +44,7 @@ class ServiceProvider extends ACMS_App
     public function init()
     {
         $hook = HookFactory::singleton();
-        $hook->attach('ReCaptchaHook', new Hook);
+        $hook->attach('ReCaptchaHook', new Hook());
         $inject = InjectTemplate::singleton();
 
         if (ADMIN === 'app_recaptcha_index') {
@@ -72,7 +72,6 @@ class ServiceProvider extends ACMS_App
      */
     public function install()
     {
-
     }
 
     /**
@@ -83,7 +82,6 @@ class ServiceProvider extends ACMS_App
      */
     public function uninstall()
     {
-
     }
 
     /**

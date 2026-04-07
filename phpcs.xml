@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!-- phpのファイルがコーディング規約に則っているかを診断するためのphpcsの設定ファイル -->
+<ruleset name="phpcs rules">
+    <rule ref="PSR12">
+      <exclude name="PSR1.Methods.CamelCapsMethodName.NotCamelCaps"/>
+      <exclude name="Generic.Files.LineLength.TooLong"/>
+    </rule>
+
+    <!-- Run against the PHPCompatibility ruleset -->
+    <rule ref="PHPCompatibility"/>
+    <config name="testVersion" value="7.2-"/>
+
+    <!-- 配列の古い構文を使用禁止にする -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+    <!-- 配列のインデントを整形 -->
+    <rule ref="Generic.Arrays.ArrayIndent"/>
+    <!-- スプレッド演算子とそれが適用される変数/関数呼び出しの間のスペースを制御 -->
+    <rule ref="Generic.WhiteSpace.SpreadOperatorSpacingAfter"/>
+    <!-- Gitのマージ競合アーティファクトがないか確認 -->
+    <rule ref="Generic.VersionControl.GitMergeConflict"/>
+    <!-- 非推奨の関数を使用禁止にする -->
+    <rule ref="Generic.PHP.DeprecatedFunctions"/>
+    <!-- <rule ref="Generic.CodeAnalysis.EmptyStatement"/> -->
+    <rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
+
+    <!-- 拡張子が php のものにだけ適用 -->
+    <arg name="extensions" value="php" />
+
+    <!-- 出力に色を適用 -->
+    <arg name="colors" />
+
+    <!-- オプション p:進捗表示  s:エラー表示時にルールを表示 -->
+    <arg value="ps" />
+
+    <!-- 適用するファイル・ディレクトリ -->
+    <file>src</file>
+
+    <!-- 除外するファイル・ディレクトリ -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+</ruleset>

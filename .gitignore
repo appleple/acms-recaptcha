@@ -1,1 +1,8 @@
+composer.phar
+vendor
 node_modules
+.DS_Store
+.idea
+/ReCaptcha
+/build
+/src/assets

@@ -1,0 +1,32 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  phpcs:
+    name: PHP CodeSniffer
+    runs-on: ubuntu-latest
+
+    container:
+      image: php:8.3
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install system dependencies
+        run: |
+          apt-get update && apt-get install -y unzip git
+
+      - name: Install Composer
+        run: |
+          curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+      - name: Composer Install
+        run: |
+          export COMPOSER_ALLOW_SUPERUSER=1
+          composer install --no-progress --prefer-dist
+
+      - name: Run PHP CodeSniffer
+        run: |
+          composer lint

@@ -13,7 +13,7 @@
     "release:patch": "npm version patch --no-git-tag-version && npm run version:sync && npm run package && npm run release:commit",
     "release:minor": "npm version minor --no-git-tag-version && npm run version:sync && npm run package && npm run release:commit",
     "release:major": "npm version major --no-git-tag-version && npm run version:sync && npm run package && npm run release:commit",
-    "minify:js": "terser ./src/recaptcha.js -o ./assets/recaptcha.js -m -c -b comments=false",
+    "minify:js": "terser ./assets/recaptcha.js -o ./src/assets/recaptcha.js -m -c -b comments=false",
     "setup": "node ./tools/setup.js"
   },
   "repository": {
