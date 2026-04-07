@@ -9,24 +9,40 @@ class ReCaptcha
      *
      * @var string
      */
-    protected $endpoint = 'https://www.google.com/recaptcha/api/siteverify';
+    private const ENDPOINT = 'https://www.google.com/recaptcha/api/siteverify';
+
+
+    /**
+     * reCAPTCHAシークレットキー
+     * @var string
+     */
+    private $secret;
+
+    /**
+     * コンストラクタ
+     *
+     * @param string $secret
+     */
+    public function __construct(string $secret)
+    {
+        $this->secret = $secret;
+    }
 
     /**
      * reCAPTCHAトークンをGoogleに送信して検証する
      *
-     * @param string $secret
      * @param string $token
      * @param float $minScore
      * @return bool
      */
-    public function verify(string $secret, string $token, float $minScore): bool
+    public function verify(string $token, float $minScore): bool
     {
         if ($token === '') {
             return false;
         }
-        $api = $this->endpoint . '?secret=' . $secret . '&response=' . $token;
+        $endpoint = $this::ENDPOINT . '?secret=' . $this->secret . '&response=' . $token;
         try {
-            $curl = curl_init($api);
+            $curl = curl_init($endpoint);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             $result = curl_exec($curl);
             $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);

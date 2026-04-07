@@ -1,8 +1,18 @@
 (function () {
-  const ADMIN_POST_MODULE_NAMES = [
+  const POST_MODULE_NAMES = [
     'ACMS_POST_Member_Admin_Login',
     'ACMS_POST_Member_Admin_ResetPassword',
     'ACMS_POST_Member_Admin_Tfa_Recovery',
+    'ACMS_POST_Member_Signin',
+    'ACMS_POST_Member_SigninWithEmail',
+    'ACMS_POST_Member_SigninWithVerifyCode',
+    'ACMS_POST_Member_Signup_Submit',
+    'ACMS_POST_Member_ResetPassword',
+    'ACMS_POST_Member_Tfa_Recovery',
+    'ACMS_POST_Login_Auth',
+    'ACMS_POST_Login_Remind',
+    'ACMS_POST_Login_Subscribe',
+    'ACMS_POST_Login_Tfa_Recovery',
   ];
 
   function getSiteKey() {
@@ -21,10 +31,10 @@
     if (form.classList.contains('js-recaptcha-form')) {
       return true;
     }
-    if (submitter && ADMIN_POST_MODULE_NAMES.includes(submitter.name)) {
+    if (submitter && POST_MODULE_NAMES.includes(submitter.name)) {
       return true;
     }
-    return ADMIN_POST_MODULE_NAMES.some(function (name) {
+    return POST_MODULE_NAMES.some(function (name) {
       return form.elements.namedItem(name) !== null;
     });
   }

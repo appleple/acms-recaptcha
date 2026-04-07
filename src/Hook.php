@@ -18,12 +18,19 @@ class Hook
         // Admin_Tfa_Recovery は Member_Tfa_Recovery を継承するため先に定義
         // Admin_Login を継承する Admin_LoginWithEmail / Admin_LoginWithVerifyCode も含む
         // Admin_Tfa_Auth は id/pass 認証済みのため beforePostFire で明示的に除外
+        //
+        // NOTE: Tfa_Recovery に reCAPTCHA を適用できる理由
+        //   Tfa_Auth は Signin 後に HMAC 署名済み takeover トークンで mail/pass を引き回す設計で、
+        //   フォームには TOTP コードのみ入力させる（セッション内フロー）。
+        //   一方 Tfa_Recovery は独立したページで mail/pass/recoveryCode を直接入力させる
+        //   完全に未認証のフローのため、ボット対策として reCAPTCHA を適用できる。
         'ACMS_POST_Member_Admin_Tfa_Recovery'  => 'google_recaptcha_member_admin_tfa_recovery',
         'ACMS_POST_Member_Admin_Login'         => 'google_recaptcha_member_admin_login',
         'ACMS_POST_Member_Admin_ResetPassword' => 'google_recaptcha_member_admin_reset_password',
         // 会員ログイン系 (Member namespace, Ver. 3.1.x 以降)
         // Member_Signin を継承する Member_SigninWithEmail / Member_SigninWithVerifyCode / Member_SigninRedirect も含む
         // Member_Tfa_Auth は id/pass 認証済みのため beforePostFire で明示的に除外
+        // Tfa_Recovery が reCAPTCHA 対象である理由は上記 NOTE を参照
         'ACMS_POST_Member_Tfa_Recovery'        => 'google_recaptcha_member_tfa_recovery',
         'ACMS_POST_Member_Signin'              => 'google_recaptcha_member_signin',
         'ACMS_POST_Member_Signup_Submit'       => 'google_recaptcha_member_signup',
@@ -196,14 +203,14 @@ SCRIPT;
         // 3.0.x 系: ACMS_GET_Login が定義する IS_LOGIN_PAGE で判定
         // ログイン・登録・パスワードリセット・TFA すべてこの定数で識別される
         if (defined('IS_LOGIN_PAGE') && IS_LOGIN_PAGE) {
-            $loginConfigs = [
-                'google_recaptcha_login_auth',
-                'google_recaptcha_login_subscribe',
-                'google_recaptcha_login_remind',
-                'google_recaptcha_login_tfa_recovery',
+            $configConstMap = [
+                'google_recaptcha_login_auth' => defined('ALT') && ALT === '',
+                'google_recaptcha_login_subscribe' => defined('ALT') && ALT === 'subscribe',
+                'google_recaptcha_login_remind' => defined('ALT') && ALT === 'remind',
+                'google_recaptcha_login_tfa_recovery' => defined('ALT') && ALT === 'recovery',
             ];
-            foreach ($loginConfigs as $configKey) {
-                if ($config->get($configKey) === 'on') {
+            foreach ($configConstMap as $configKey => $isPage) {
+                if ($isPage && $config->get($configKey) === 'on') {
                     return true;
                 }
             }
@@ -224,7 +231,7 @@ SCRIPT;
         $secret = (string) $config->get('google_recaptcha_secret');
         $score = (float) $config->get('google_recaptcha_score', 0.5);
         $token = (string) $thisModule->Post->get('g-recaptcha-token');
-        $service = new ReCaptchaService();
-        return $service->verify($secret, $token, $score);
+        $service = new ReCaptchaService($secret);
+        return $service->verify($token, $score);
     }
 }
