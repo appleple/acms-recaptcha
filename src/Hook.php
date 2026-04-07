@@ -16,11 +16,14 @@ class Hook
     private $loginModuleConfigMap = [
         // 管理画面ログイン系 (Admin namespace, Ver. 3.1.x 以降)
         // Admin_Tfa_Recovery は Member_Tfa_Recovery を継承するため先に定義
-        // Admin_Login を継承する Admin_LoginWithEmail / Admin_LoginWithVerifyCode / Admin_Tfa_Auth も含む
+        // Admin_Login を継承する Admin_LoginWithEmail / Admin_LoginWithVerifyCode も含む
+        // Admin_Tfa_Auth は id/pass 認証済みのため beforePostFire で明示的に除外
         'ACMS_POST_Member_Admin_Tfa_Recovery'  => 'google_recaptcha_member_admin_tfa_recovery',
         'ACMS_POST_Member_Admin_Login'         => 'google_recaptcha_member_admin_login',
         'ACMS_POST_Member_Admin_ResetPassword' => 'google_recaptcha_member_admin_reset_password',
         // 会員ログイン系 (Member namespace, Ver. 3.1.x 以降)
+        // Member_Signin を継承する Member_SigninWithEmail / Member_SigninWithVerifyCode / Member_SigninRedirect も含む
+        // Member_Tfa_Auth は id/pass 認証済みのため beforePostFire で明示的に除外
         'ACMS_POST_Member_Tfa_Recovery'        => 'google_recaptcha_member_tfa_recovery',
         'ACMS_POST_Member_Signin'              => 'google_recaptcha_member_signin',
         'ACMS_POST_Member_Signup_Submit'       => 'google_recaptcha_member_signup',
@@ -99,6 +102,14 @@ class Hook
                 $thisModule->Post->setValidator('g-recaptcha', 'validator', false);
                 $thisModule->Post->set('error', 'forbidden');
             }
+            return;
+        }
+
+        // Tfa_Auth 系は id/pass 認証済みのステップのため reCAPTCHA 不要
+        if (class_exists('ACMS_POST_Member_Admin_Tfa_Auth') && $thisModule instanceof \ACMS_POST_Member_Admin_Tfa_Auth) {
+            return;
+        }
+        if (class_exists('ACMS_POST_Member_Tfa_Auth') && $thisModule instanceof \ACMS_POST_Member_Tfa_Auth) {
             return;
         }
 
