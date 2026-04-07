@@ -45,8 +45,23 @@ class Hook
     }
 
     /**
+     * recaptcha.js のキャッシュバスティング付きパスを返す
+     *
+     * @return string
+     */
+    private function getScriptPath(): string
+    {
+        return cacheBusting(
+            '/' . DIR_OFFSET . 'extension/plugins/ReCaptcha/assets/recaptcha.js',
+            SCRIPT_DIR . '/extension/plugins/ReCaptcha/assets/recaptcha.js'
+        );
+    }
+
+    /**
      * グローバル変数を拡張する
      * %{RECAPTCHA_HIGHER_THAN_V30} として Ver. 3.1.0 以上かを 1/0 で参照できる
+     * %{RECAPTCHA_SITEKEY} としてサイトキーを参照できる
+     * %{RECAPTCHA_JS} としてキャッシュバスティング付き recaptcha.js のパスを参照できる
      *
      * @param \Field $exVars
      * @return void
@@ -54,6 +69,11 @@ class Hook
     public function extendsGlobalVars(&$exVars)
     {
         $exVars->set('RECAPTCHA_HIGHER_THAN_V30', version_compare(VERSION, '3.1.0', '>=') ? '1' : '0');
+
+        $config = $this->loadConfig();
+        $sitekey = (string) $config->get('google_recaptcha_sitekey');
+        $exVars->set('RECAPTCHA_SITEKEY', htmlspecialchars($sitekey, ENT_QUOTES, 'UTF-8'));
+        $exVars->set('RECAPTCHA_JS', $this->getScriptPath());
     }
 
     /**
@@ -125,22 +145,10 @@ class Hook
         }
 
         $sitekeySafe = htmlspecialchars($sitekey, ENT_QUOTES, 'UTF-8');
-        $sitekeyJson = json_encode($sitekey);
-        $pluginUrl = PLUGIN_DIR . 'ReCaptcha/';
+        $scriptPath = $this->getScriptPath();
         $script = <<<SCRIPT
 <script src="https://www.google.com/recaptcha/api.js?render={$sitekeySafe}"></script>
-<script src="{$pluginUrl}assets/recaptcha.js"></script>
-<script>
-if (window.ACMS === undefined) {
-  ACMS = {};
-  ACMS.Config = {};
-  ACMS.Config.ReCaptcha = {$sitekeyJson};
-} else {
-  ACMS.Ready(function () {
-    ACMS.Config.ReCaptcha = {$sitekeyJson};
-  });
-}
-</script>
+<script id="acms-recaptcha-js" src="{$scriptPath}" data-sitekey="{$sitekeySafe}"></script>
 
 SCRIPT;
 

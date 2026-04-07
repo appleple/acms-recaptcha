@@ -5,10 +5,14 @@
     'ACMS_POST_Member_Admin_Tfa_Recovery',
   ];
 
+  function getSiteKey() {
+    return document.querySelector('script#acms-recaptcha-js')?.dataset?.sitekey ?? window.ACMS?.Config?.ReCaptcha;
+  }
+
   function getRecaptchaToken() {
     return new Promise(function (resolve, reject) {
       grecaptcha.ready(function () {
-        grecaptcha.execute(ACMS.Config.ReCaptcha, { action: 'homepage' }).then(resolve, reject);
+        grecaptcha.execute(getSiteKey(), { action: 'homepage' }).then(resolve, reject);
       });
     });
   }

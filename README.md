@@ -57,6 +57,17 @@ a-blog cms の 拡張アプリ「reCAPTCHA for a-blog cms」を使うと、Googl
 以下コードを フォームテンプレートのhead要素内に読み込んでください。
 
 ```
+<!-- BEGIN_MODULE Admin_InjectTemplate id="recaptcha-js" -->
+<!-- END_MODULE Admin_InjectTemplate -->
+```
+
+このモジュールにより、Google reCAPTCHA API スクリプトと `recaptcha.js` が自動で注入されます。キャッシュバスティング用のクエリも自動的に付与されます。
+
+#### 旧来の書き方（後方互換）
+
+`Admin_InjectTemplate` を使わずに直接書くこともできます。`ACMS.Config.ReCaptcha` を設定する既存のコードも引き続き動作します。
+
+```
 <!-- BEGIN_MODULE ReCaptcha -->
 <script src="https://www.google.com/recaptcha/api.js?render={sitekey}"></script>
 <script src="/extension/plugins/ReCaptcha/assets/recaptcha.js"></script>

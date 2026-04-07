@@ -52,6 +52,7 @@ class ServiceProvider extends ACMS_App
             $inject->add('admin-topicpath', PLUGIN_DIR . 'ReCaptcha/template/topicpath.html');
         }
         $inject->add('admin-form', PLUGIN_DIR . 'ReCaptcha/template/admin/form.html');
+        $inject->add('recaptcha-js', PLUGIN_DIR . 'ReCaptcha/template/recaptcha-js.html');
     }
 
     /**
