@@ -177,11 +177,12 @@ a-blog cms Ver. 3.0.0 以降では、コンタクトフォームだけでなく 
 
 有効な設定がある場合、プラグインが対象ページの `</head>` 直前に以下を自動で挿入します。
 
-- Google reCAPTCHA API スクリプト（`render=サイトキー`）
-- `recaptcha.js`（フォームへのトークン付与）
-- `ACMS.Config.ReCaptcha` の初期化コード
+```html
+<script src="https://www.google.com/recaptcha/api.js?render={sitekey}"></script>
+<script id="acms-recaptcha-js" src="{recaptcha.jsのパス}" data-sitekey="{sitekey}"></script>
+```
 
-テンプレート側でのスクリプト読み込みは不要です。
+サイトキーは `data-sitekey` 属性で `recaptcha.js` に渡されます。`recaptcha.js` のパスにはキャッシュバスティング用のクエリが自動で付与されます。テンプレート側でのスクリプト読み込みは不要です。
 
 ### エラー表示
 
