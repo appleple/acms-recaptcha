@@ -14,7 +14,7 @@ a-blog cms の 拡張アプリ「reCAPTCHA for a-blog cms」を使うと、Googl
 ## 動作環境
 
 - a-blog cms: Ver. 3.0.x – 3.2.x (3.3+ not tested yet)
-- PHP: 7.3 – 8.4 (8.5+ not tested yet)
+- PHP: 7.2.5 – 8.4 (8.5+ not tested yet)
 
 
 ## インストール
