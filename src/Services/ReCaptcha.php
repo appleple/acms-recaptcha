@@ -47,7 +47,7 @@ class ReCaptcha
             $result = curl_exec($curl);
             $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
             if (PHP_VERSION_ID < 80000) {
-                curl_close($curl);
+                curl_close($curl); // phpcs:ignore Generic.PHP.DeprecatedFunctions.Deprecated
             }
 
             if ($result === false || $status !== 200) {
