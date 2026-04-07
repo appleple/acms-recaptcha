@@ -14,21 +14,29 @@
 
 <!-- BEGIN_MODULE Admin_Config -->
 <!-- BEGIN_IF [{notice_mess}/nem/] -->
-<p class="acms-admin-alert acms-admin-alert-info acms-admin-alert-icon">
-  <span class="acms-admin-alert-icon-before acms-admin-icon-news"></span>
+<div role="alert" class="acms-admin-alert acms-admin-alert-info acms-admin-alert-icon">
+  <span class="acms-admin-alert-icon-before acms-admin-icon-news" aria-hidden="true"></span>
   ReCAPTCHA 設定を保存しました
-  <button class="js-acms-alert-close acms-admin-alert-icon-after acms-admin-margin-right-mini">×</button>
-</p><!-- END_IF -->
+  <button
+    type="button"
+    class="js-acms-alert-close acms-admin-alert-icon-after acms-admin-margin-right-mini"
+    aria-label="アラートを閉じる"
+  >
+    ×
+  </button>
+</div><!-- END_IF -->
 
 
 <form action="" method="post" class="acms-admin-form">
   <div class="js-acms_fix_marker acms_fix_bg">
     <div class="acms_fix_bg_index">
-      <input
+      <button
         type="submit"
         name="ACMS_POST_Config"
-        value="<!--T-->保存<!--/T-->"
-        class="acms-admin-btn-admin acms-admin-btn-admin-primary acms-admin-btn-admin-save js-saving-splash"/>
+        class="acms-admin-btn-admin acms-admin-btn-admin-primary acms-admin-btn-admin-save js-saving-splash"
+      >
+        保存
+      </button>
     </div>
   </div>
 
@@ -66,5 +74,142 @@
       </td>
     </tr>
   </table>
+
+  <!-- BEGIN_IF [%{RECAPTCHA_HIGHER_THAN_V30}/eq/1] -->
+  <h2 class="acms-admin-admin-title2">会員機能の設定</h2>
+  <table class="acms-admin-table-admin-edit">
+    <tr>
+      <th>サインイン認証<i class="acms-admin-icon-tooltip js-acms-tooltip-hover" data-acms-tooltip="会員ログインフォームにreCAPTCHAを適用します。（ACMS_POST_Member_Signin）"></i></th>
+      <td>
+        <input type="hidden" name="google_recaptcha_member_signin" value="off">
+        <div class="acms-admin-form-checkbox">
+          <input type="checkbox" name="google_recaptcha_member_signin" value="on"{google_recaptcha_member_signin:checked#on} id="google_recaptcha_member_signin">
+          <label for="google_recaptcha_member_signin"><i class="acms-admin-ico-checkbox"></i>有効にする</label>
+        </div>
+        <input type="hidden" name="config[]" value="google_recaptcha_member_signin">
+      </td>
+    </tr>
+    <tr>
+      <th>会員登録<i class="acms-admin-icon-tooltip js-acms-tooltip-hover" data-acms-tooltip="会員登録フォームにreCAPTCHAを適用します。（ACMS_POST_Member_Signup_Submit）"></i></th>
+      <td>
+        <input type="hidden" name="google_recaptcha_member_signup" value="off">
+        <div class="acms-admin-form-checkbox">
+          <input type="checkbox" name="google_recaptcha_member_signup" value="on"{google_recaptcha_member_signup:checked#on} id="google_recaptcha_member_signup">
+          <label for="google_recaptcha_member_signup"><i class="acms-admin-ico-checkbox"></i>有効にする</label>
+        </div>
+        <input type="hidden" name="config[]" value="google_recaptcha_member_signup">
+      </td>
+    </tr>
+    <tr>
+      <th>パスワードリセット<i class="acms-admin-icon-tooltip js-acms-tooltip-hover" data-acms-tooltip="パスワードリセットメール送信フォームにreCAPTCHAを適用します。（ACMS_POST_Member_ResetPassword）"></i></th>
+      <td>
+        <input type="hidden" name="google_recaptcha_member_reset_password" value="off">
+        <div class="acms-admin-form-checkbox">
+          <input type="checkbox" name="google_recaptcha_member_reset_password" value="on"{google_recaptcha_member_reset_password:checked#on} id="google_recaptcha_member_reset_password">
+          <label for="google_recaptcha_member_reset_password"><i class="acms-admin-ico-checkbox"></i>有効にする</label>
+        </div>
+        <input type="hidden" name="config[]" value="google_recaptcha_member_reset_password">
+      </td>
+    </tr>
+    <tr>
+      <th>2段階認証リカバリー<i class="acms-admin-icon-tooltip js-acms-tooltip-hover" data-acms-tooltip="リカバリーコードでの2段階認証突破フォームにreCAPTCHAを適用します。（ACMS_POST_Member_Tfa_Recovery）"></i></th>
+      <td>
+        <input type="hidden" name="google_recaptcha_member_tfa_recovery" value="off">
+        <div class="acms-admin-form-checkbox">
+          <input type="checkbox" name="google_recaptcha_member_tfa_recovery" value="on"{google_recaptcha_member_tfa_recovery:checked#on} id="google_recaptcha_member_tfa_recovery">
+          <label for="google_recaptcha_member_tfa_recovery"><i class="acms-admin-ico-checkbox"></i>有効にする</label>
+        </div>
+        <input type="hidden" name="config[]" value="google_recaptcha_member_tfa_recovery">
+      </td>
+    </tr>
+  </table>
+
+  <h2 class="acms-admin-admin-title2">管理ログイン機能の設定</h2>
+  <table class="acms-admin-table-admin-edit">
+    <tr>
+      <th>ログイン認証<i class="acms-admin-icon-tooltip js-acms-tooltip-hover" data-acms-tooltip="ログインフォームにreCAPTCHAを適用します。（ACMS_POST_Member_Admin_Login）"></i></th>
+      <td>
+        <input type="hidden" name="google_recaptcha_member_admin_login" value="off">
+        <div class="acms-admin-form-checkbox">
+          <input type="checkbox" name="google_recaptcha_member_admin_login" value="on"{google_recaptcha_member_admin_login:checked#on} id="google_recaptcha_member_admin_login">
+          <label for="google_recaptcha_member_admin_login"><i class="acms-admin-ico-checkbox"></i>有効にする</label>
+        </div>
+        <input type="hidden" name="config[]" value="google_recaptcha_member_admin_login">
+      </td>
+    </tr>
+    <tr>
+      <th>パスワードリセット<i class="acms-admin-icon-tooltip js-acms-tooltip-hover" data-acms-tooltip="パスワードリセットメール送信フォームにreCAPTCHAを適用します。（ACMS_POST_Member_Admin_ResetPassword）"></i></th>
+      <td>
+        <input type="hidden" name="google_recaptcha_member_admin_reset_password" value="off">
+        <div class="acms-admin-form-checkbox">
+          <input type="checkbox" name="google_recaptcha_member_admin_reset_password" value="on"{google_recaptcha_member_admin_reset_password:checked#on} id="google_recaptcha_member_admin_reset_password">
+          <label for="google_recaptcha_member_admin_reset_password"><i class="acms-admin-ico-checkbox"></i>有効にする</label>
+        </div>
+        <input type="hidden" name="config[]" value="google_recaptcha_member_admin_reset_password">
+      </td>
+    </tr>
+    <tr>
+      <th>2段階認証リカバリー<i class="acms-admin-icon-tooltip js-acms-tooltip-hover" data-acms-tooltip="リカバリーコードでの2段階認証突破フォームにreCAPTCHAを適用します。（ACMS_POST_Member_Admin_Tfa_Recovery）"></i></th>
+      <td>
+        <input type="hidden" name="google_recaptcha_member_admin_tfa_recovery" value="off">
+        <div class="acms-admin-form-checkbox">
+          <input type="checkbox" name="google_recaptcha_member_admin_tfa_recovery" value="on"{google_recaptcha_member_admin_tfa_recovery:checked#on} id="google_recaptcha_member_admin_tfa_recovery">
+          <label for="google_recaptcha_member_admin_tfa_recovery"><i class="acms-admin-ico-checkbox"></i>有効にする</label>
+        </div>
+        <input type="hidden" name="config[]" value="google_recaptcha_member_admin_tfa_recovery">
+      </td>
+    </tr>
+  </table>
+  <!-- END_IF -->
+
+  <!-- BEGIN_IF [%{RECAPTCHA_HIGHER_THAN_V30}/eq/0] -->
+  <h2 class="acms-admin-admin-title2">認証機能の設定</h2>
+  <table class="acms-admin-table-admin-edit">
+    <tr>
+      <th>ログイン認証<i class="acms-admin-icon-tooltip js-acms-tooltip-hover" data-acms-tooltip="会員ログインフォームにreCAPTCHAを適用します。（ACMS_POST_Login_Auth）"></i></th>
+      <td>
+        <input type="hidden" name="google_recaptcha_login_auth" value="off">
+        <div class="acms-admin-form-checkbox">
+          <input type="checkbox" name="google_recaptcha_login_auth" value="on"{google_recaptcha_login_auth:checked#on} id="google_recaptcha_login_auth">
+          <label for="google_recaptcha_login_auth"><i class="acms-admin-ico-checkbox"></i>有効にする</label>
+        </div>
+        <input type="hidden" name="config[]" value="google_recaptcha_login_auth">
+      </td>
+    </tr>
+    <tr>
+      <th>会員登録<i class="acms-admin-icon-tooltip js-acms-tooltip-hover" data-acms-tooltip="会員登録フォームにreCAPTCHAを適用します。（ACMS_POST_Login_Subscribe）"></i></th>
+      <td>
+        <input type="hidden" name="google_recaptcha_login_subscribe" value="off">
+        <div class="acms-admin-form-checkbox">
+          <input type="checkbox" name="google_recaptcha_login_subscribe" value="on"{google_recaptcha_login_subscribe:checked#on} id="google_recaptcha_login_subscribe">
+          <label for="google_recaptcha_login_subscribe"><i class="acms-admin-ico-checkbox"></i>有効にする</label>
+        </div>
+        <input type="hidden" name="config[]" value="google_recaptcha_login_subscribe">
+      </td>
+    </tr>
+    <tr>
+      <th>パスワードリセット<i class="acms-admin-icon-tooltip js-acms-tooltip-hover" data-acms-tooltip="パスワードリセットメール送信フォームにreCAPTCHAを適用します。（ACMS_POST_Login_Remind）"></i></th>
+      <td>
+        <input type="hidden" name="google_recaptcha_login_remind" value="off">
+        <div class="acms-admin-form-checkbox">
+          <input type="checkbox" name="google_recaptcha_login_remind" value="on"{google_recaptcha_login_remind:checked#on} id="google_recaptcha_login_remind">
+          <label for="google_recaptcha_login_remind"><i class="acms-admin-ico-checkbox"></i>有効にする</label>
+        </div>
+        <input type="hidden" name="config[]" value="google_recaptcha_login_remind">
+      </td>
+    </tr>
+    <tr>
+      <th>2段階認証リカバリー<i class="acms-admin-icon-tooltip js-acms-tooltip-hover" data-acms-tooltip="リカバリーコードでの2段階認証突破フォームにreCAPTCHAを適用します。（ACMS_POST_Login_Tfa_Recovery）"></i></th>
+      <td>
+        <input type="hidden" name="google_recaptcha_login_tfa_recovery" value="off">
+        <div class="acms-admin-form-checkbox">
+          <input type="checkbox" name="google_recaptcha_login_tfa_recovery" value="on"{google_recaptcha_login_tfa_recovery:checked#on} id="google_recaptcha_login_tfa_recovery">
+          <label for="google_recaptcha_login_tfa_recovery"><i class="acms-admin-ico-checkbox"></i>有効にする</label>
+        </div>
+        <input type="hidden" name="config[]" value="google_recaptcha_login_tfa_recovery">
+      </td>
+    </tr>
+  </table>
+  <!-- END_IF -->
 </form>
 <!-- END_MODULE Admin_Config -->

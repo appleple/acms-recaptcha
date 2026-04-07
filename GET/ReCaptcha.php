@@ -20,9 +20,8 @@ class ReCaptcha extends ACMS_GET
 
         $key = $config->get('google_recaptcha_sitekey');
         $tpl = new Template($this->tpl, new ACMS_Corrector());
-        $tpl->add(null, array(
+        return $tpl->render([
             'sitekey' => $key,
-        ));
-        return $tpl->get();
+        ]);
     }
 }
