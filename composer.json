@@ -1,5 +1,5 @@
 {
-    "name": "com.appleple/recaptcha",
+    "name": "appleple/recaptcha",
     "description": "a-blog cms extension.",
     "scripts": {
         "lint": "vendor/bin/phpcs --standard=phpcs.xml",
