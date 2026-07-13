@@ -47,7 +47,9 @@ class ReCaptcha
             $result = curl_exec($curl);
             $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
             if (PHP_VERSION_ID < 80000) {
-                curl_close($curl); // phpcs:ignore Generic.PHP.DeprecatedFunctions.Deprecated
+                // PHP 7.x では明示的に close が必要。8.0+ では no-op のため呼ばない（8.5 で非推奨）。
+                // phpcs:ignore Generic.PHP.DeprecatedFunctions.Deprecated, PHPCompatibility.FunctionUse.RemovedFunctions.curl_closeDeprecated
+                curl_close($curl);
             }
 
             if ($result === false || $status !== 200) {
