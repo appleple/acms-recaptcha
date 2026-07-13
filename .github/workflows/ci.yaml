@@ -3,30 +3,20 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  phpcs:
+  lint:
     name: PHP CodeSniffer
     runs-on: ubuntu-latest
-
-    container:
-      image: php:8.5
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v7
+      - uses: actions/checkout@v7
 
-      - name: Install system dependencies
-        run: |
-          apt-get update && apt-get install -y unzip git
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          tools: composer
 
-      - name: Install Composer
-        run: |
-          curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+      - name: Install dependencies
+        run: composer install --no-progress --prefer-dist
 
-      - name: Composer Install
-        run: |
-          export COMPOSER_ALLOW_SUPERUSER=1
-          composer install --no-progress --prefer-dist
-
-      - name: Run PHP CodeSniffer
-        run: |
-          composer lint
+      - name: Coding standards (PHP_CodeSniffer + PHPCompatibility)
+        run: composer lint
