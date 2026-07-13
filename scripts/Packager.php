@@ -30,6 +30,13 @@ final class Packager
     private const IGNORES = ['composer.json', 'composer.lock'];
 
     /**
+     * Names never copied into the package, at any depth: dev-only dirs / VCS / OS cruft. Without
+     * this a plugin that keeps a build project under src/ (e.g. a Webpack theme) would ship its
+     * whole node_modules — tens of MB of dependencies that have no place in the deployed plugin.
+     */
+    private const EXCLUDE_NAMES = ['node_modules', '.git', '.DS_Store'];
+
+    /**
      * Default root-level files/dirs bundled alongside src/ when present. Override per plugin via
      * composer.json `extra.acms-plugin-tools.extras` (e.g. ["docs"]). `images/` is the plugin thumbnail
      * a-blog cms shows in the admin; LICENSE is removed by post-create-project, so it is only
@@ -332,6 +339,9 @@ final class Packager
 
     private function copyTree(string $from, string $to): void
     {
+        if (in_array(basename($from), self::EXCLUDE_NAMES, true)) {
+            return;
+        }
         if (is_dir($from)) {
             $this->ensureDir($to);
             foreach (scandir($from) ?: [] as $item) {
