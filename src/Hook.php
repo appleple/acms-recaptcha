@@ -138,7 +138,13 @@ class Hook
         if (!$this->verifyToken($thisModule)) {
             $thisModule->Post->setValidator('g-recaptcha', 'validator', false);
             $method = new \ReflectionMethod($thisModule, 'addSystemError');
-            $method->setAccessible(true);
+            if (PHP_VERSION_ID < 80100) {
+                // PHP 7.x では非 public メソッドの invoke に明示的な解除が必要。
+                // 8.1+ では no-op のため呼ばない（8.5 で非推奨）。
+                // NOTE: Closure::bind に置き換えないのは、addSystemError の可視性・宣言クラスが
+                //       a-blog cms のバージョンで変わっても影響を受けない Reflection を維持するため。
+                $method->setAccessible(true);
+            }
             $method->invoke($thisModule, 'IllegalAccess');
         }
     }
