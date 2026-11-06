@@ -29,6 +29,12 @@ jobs:
           extensions: zip
           tools: composer
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .node-version
+          cache: npm
+
       - name: Verify tag matches ServiceProvider $version
         run: php scripts/package.php --check-version="${GITHUB_REF_NAME#v}"
 
